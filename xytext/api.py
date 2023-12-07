@@ -3,19 +3,28 @@ import json
 
 class XytextResponse:
     def __init__(self, response):
-        self.raw_response = response
-        self.success = response.get('success', False)
-        self.usage = type('Usage', (), response.get('usage', {}))
-        self.call_id = response.get('call_id', None)
+        try:
+            self.raw_response = response
+            self.success = response.get('success', False)
+            if not self.success:
+                # throw error with response.get('message')
+                self.message = response.get('message', None)
+                raise Exception(self.message)
+            self.usage = type('Usage', (), response.get('usage', {}))
+            self.call_id = response.get('call_id', None)
 
-        # Handle the 'result' attribute
-        result_str = response.get('result')
-        if result_str:
-            try:
-                self.result = json.loads(result_str)
-            except json.JSONDecodeError:
-                self.result = result_str
-        else:
+            # Handle the 'result' attribute
+            result_str = response.get('result')
+            if result_str:
+                try:
+                    self.result = json.loads(result_str)
+                except json.JSONDecodeError:
+                    self.result = result_str
+            else:
+                self.result = None
+        except Exception as e:
+            print(e)
+            self.success = False
             self.result = None
 
 class Xytext:
