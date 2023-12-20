@@ -23,7 +23,7 @@ class XytextResponse:
             else:
                 self.result = None
         except Exception as e:
-            print(e)
+            print("Xytext Error Reason: " + str(e))
             self.success = False
             self.result = None
 
