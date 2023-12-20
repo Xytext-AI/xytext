@@ -37,11 +37,14 @@ class Xytext:
         self.func_id = func_id
         self.stage = stage
 
-    def invoke(self, input_text):
+    def invoke(self, input_text, extras=None):
         payload = {
             "input": input_text,
             "func_id": self.func_id,
             "stage": self.stage
         }
+        if extras is not None:
+            payload.update(extras)
+            
         response = requests.post(self.base_url, json=payload, headers=self.headers)
         return XytextResponse(response.json())
