@@ -28,7 +28,7 @@ class XytextResponse:
             self.result = None
 
 class Xytext:
-    def __init__(self, func_id, stage, auth_token):
+    def __init__(self, func_id, stage, auth_token, timeout=900):
         self.base_url = "https://api.xytext.com/invoke"
         self.headers = {
             "Content-Type": "application/json",
@@ -36,6 +36,7 @@ class Xytext:
         }
         self.func_id = func_id
         self.stage = stage
+        self.timeout = timeout
 
     def invoke(self, input_text, extras=None):
         payload = {
@@ -46,5 +47,5 @@ class Xytext:
         if extras is not None:
             payload.update(extras)
             
-        response = requests.post(self.base_url, json=payload, headers=self.headers)
+        response = requests.post(self.base_url, json=payload, headers=self.headers, timeout=self.timeout)
         return XytextResponse(response.json())

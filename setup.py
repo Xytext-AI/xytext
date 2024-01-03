@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='xytext',
-    version='1.0.4',
+    version='1.0.5',
     packages=find_packages(),
     install_requires=[
         'requests',
@@ -54,7 +54,7 @@ example_usage()
 This is the primary class used to interact with the Xytext API.
 
 #### Constructor
-**Xytext(func_id, stage, auth_token)**
+**Xytext(func_id, stage, auth_token, timeout=900)**
 
 Parameters:
 
@@ -63,6 +63,8 @@ Parameters:
 `stage (String)` The stage of the API environment ("staging", "prod").
 
 `auth_token (String)` Your authorization token for the Xytext API.
+
+`timeout (Integer)` The timeout for the API request in seconds. Default is 900 seconds (15 minutes).
 
 
 #### Methods
