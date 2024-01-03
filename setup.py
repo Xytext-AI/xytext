@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='xytext',
-    version='1.0.5',
+    version='1.0.6',
     packages=find_packages(),
     install_requires=[
         'requests',
@@ -37,7 +37,7 @@ def example_usage():
     stage = "your_stage"
     auth_token = "your_auth_token"
 
-    xt = Xytext(func_id, stage, auth_token)
+    xt = Xytext(func_id, stage, auth_token, timeout=900)
     try:
         response = xt.invoke("Your input text here")
         print(response.result)
